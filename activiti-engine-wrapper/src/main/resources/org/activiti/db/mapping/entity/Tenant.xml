@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vmware.activiti.engine.impl.persistence.entity.TenantEntityImpl">
+
+    <!-- TENANT INSERT -->
+
+    <insert id="insertTenant" parameterType="com.vmware.activiti.engine.impl.persistence.entity.TenantEntityImpl">
+    insert into ${prefix}ACT_ID_TENANT (ID_, REV_, NAME_, TYPE_)
+    values (
+      #{id ,jdbcType=VARCHAR},
+      1,
+      #{name ,jdbcType=VARCHAR},
+      #{type ,jdbcType=VARCHAR}
+    )
+  </insert>
+
+    <insert id="bulkInsertTenant" parameterType="java.util.List">
+        insert into ${prefix}ACT_ID_TENANT (ID_, REV_, NAME_, TYPE_)
+        values
+        <foreach collection="list" item="tenant" index="index" separator=",">
+            (#{tenant.id ,jdbcType=VARCHAR},
+            1,
+            #{tenant.name ,jdbcType=VARCHAR},
+            #{tenant.type ,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="bulkInsertTenant" databaseId="oracle" parameterType="java.util.List">
+        INSERT ALL
+        <foreach collection="list" item="tenant" index="index">
+            INTO ${prefix}ACT_ID_TENANT (ID_, REV_, NAME_, TYPE_) VALUES
+            (#{tenant.id ,jdbcType=VARCHAR},
+            1,
+            #{tenant.name ,jdbcType=VARCHAR},
+            #{tenant.type ,jdbcType=VARCHAR})
+        </foreach>
+        SELECT * FROM dual
+    </insert>
+
+    <!-- TENANT UPDATE -->
+
+    <update id="updateTenant" parameterType="com.vmware.activiti.engine.impl.persistence.entity.TenantEntityImpl">
+    update ${prefix}ACT_ID_TENANT set
+      REV_ = #{revisionNext ,jdbcType=INTEGER},
+      NAME_ = #{name ,jdbcType=VARCHAR},
+      TYPE_ = #{type ,jdbcType=VARCHAR}
+    where ID_ = #{id}
+       and REV_ = #{revision}
+  </update>
+
+    <!-- TENANT DELETE -->
+
+    <delete id="deleteTenant" parameterType="com.vmware.activiti.engine.impl.persistence.entity.TenantEntityImpl">
+    delete from ${prefix}ACT_ID_TENANT where ID_ = #{id} and REV_ = #{revision}
+  </delete>
+
+    <!-- TENANT RESULTMAP -->
+
+    <resultMap id="tenantResultMap" type="com.vmware.activiti.engine.impl.persistence.entity.TenantEntityImpl">
+        <id property="id" column="ID_" jdbcType="VARCHAR" />
+        <result property="revision" column="REV_" jdbcType="INTEGER" />
+        <result property="name" column="NAME_" jdbcType="VARCHAR" />
+        <result property="type" column="TYPE_" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <!-- TENANT SELECT -->
+
+    <select id="selectTenant" parameterType="string" resultMap="tenantResultMap">
+    select * from ${prefix}ACT_ID_TENANT where ID_ = #{id, jdbcType=VARCHAR}
+  </select>
+
+    <select id="selectTenantsByUserId" parameterType="org.activiti.engine.impl.db.ListQueryParameterObject" resultMap="tenantResultMap">
+    select g.*
+    from ${prefix}ACT_ID_TENANT t, ${prefix}ACT_ID_EMPLOYMENT employment
+    where t.ID_ = employment.TENANT_ID_
+      and employment.USER_ID_ = #{parameter}
+  </select>
+
+    <select id="selectTenantByQueryCriteria" parameterType="com.vmware.activiti.engine.impl.TenantQueryImpl" resultMap="tenantResultMap">
+        ${limitBefore}
+        select RES.* ${limitBetween}
+        <include refid="selectTenantByQueryCriteriaSql" />
+        ${orderBy}
+        ${limitAfter}
+    </select>
+
+    <select id="selectTenantCountByQueryCriteria" parameterType="com.vmware.activiti.engine.impl.TenantQueryImpl" resultType="long">
+        select count(RES.ID_)
+        <include refid="selectTenantCountByQueryCriteriaSql" />
+    </select>
+
+    <sql id="selectTenantByQueryCriteria">
+        from ${prefix}ACT_ID_TENANT RES
+        <if test="userId != null">
+            inner join ${prefix}ACT_ID_EMPLOYMENT M on RES.ID_ = M.TENANT_ID_
+            inner join ${prefix}ACT_ID_USER U on M.USER_ID_ = U.ID_
+        </if>
+        <where>
+            <if test="id != null">
+                RES.ID_ = #{id}
+            </if>
+            <if test="name != null">
+                and RES.NAME_ = #{name}
+            </if>
+            <if test="nameLike != null">
+                and RES.NAME_ like #{nameLike}${wildcardEscapeClause}
+            </if>
+            <if test="type != null">
+                and RES.TYPE_ = #{type}
+            </if>
+            <if test="userId != null">
+                and U.ID_ = #{userId}
+            </if>
+            <if test="procDefId != null">
+                and exists (select ID_ from ${prefix}ACT_RU_IDENTITYLINK where PROC_DEF_ID_ = #{procDefId} and TENANT_ID_=RES.ID_ )
+            </if>
+
+        </where>
+    </sql>
+
+    <select id="selectTenantByNativeQuery" parameterType="java.util.Map" resultMap="tenantResultMap">
+        <include refid="org.activiti.engine.db.common.selectByNativeQuery"/>
+    </select>
+
+    <select id="selectTenantCountByNativeQuery" parameterType="java.util.Map" resultType="long">
+    ${sql}
+  </select>
+
+</mapper>

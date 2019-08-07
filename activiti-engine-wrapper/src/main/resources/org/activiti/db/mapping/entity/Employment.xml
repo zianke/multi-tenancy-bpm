@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.vmware.activiti.engine.impl.persistence.entity.EmploymentRelation">
+
+    <!-- EMPLOYMENT INSERT -->
+
+    <insert id="insertEmployment" parameterType="map">
+    insert into ${prefix}ACT_ID_EMPLOYMENT (USER_ID_, TENANT_ID_)
+    values (
+      #{userId ,jdbcType=VARCHAR},
+      #{tenantId ,jdbcType=VARCHAR}
+    )
+  </insert>
+
+    <insert id="bulkInsertEmployment" parameterType="java.util.List">
+        INSERT INTO ${prefix}ACT_ID_EMPLOYMENT (USER_ID_, TENANT_ID_)
+        VALUES
+        <foreach collection="list" item="employment" index="index" separator=",">
+            (#{employment.userId ,jdbcType=VARCHAR},
+            #{employment.tenantId ,jdbcType=VARCHAR})
+        </foreach>
+    </insert>
+
+    <insert id="bulkInsertEmployment" databaseId="oracle" parameterType="java.util.List">
+        INSERT ALL
+        <foreach collection="list" item="employment" index="index">
+            INTO ${prefix}ACT_ID_EMPLOYMENT (USER_ID_, TENANT_ID_) VALUES
+            (#{employment.userId ,jdbcType=VARCHAR},
+            #{employment.tenantId ,jdbcType=VARCHAR})
+        </foreach>
+        SELECT * FROM dual
+    </insert>
+
+    <!-- EMPLOYMENT UPDATE -->
+
+    <!-- EMPLOYMENT DELETE -->
+
+    <delete id="deleteEmploymentsByUserId" parameterType="string">
+    delete from ${prefix}ACT_ID_EMPLOYMENT
+    where USER_ID_ = #{userId}
+  </delete>
+
+    <delete id="deleteEmployment" parameterType="map">
+    delete from ${prefix}ACT_ID_EMPLOYMENT
+    where USER_ID_ = #{userId}
+      and TENANT_ID_ = #{tenantId}
+  </delete>
+
+    <!-- EMPLOYMENT RESULTMAP -->
+
+    <!-- EMPLOYMENT DELETE -->
+
+    <delete id="deleteEmploymentsByTenantId" parameterType="string">
+    delete from ${prefix}ACT_ID_EMPLOYMENT
+    where TENANT_ID_ = #{tenantId}
+  </delete>
+
+</mapper>
