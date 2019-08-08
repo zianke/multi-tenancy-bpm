@@ -27,17 +27,19 @@ You will also see any lint errors in the console.
 Log in webpage.<br>
 Firstly, user should select his role: customer or staff. As a customer, the user can log in by his username and password. As a staff, his company and group are also required while logging in.
 
+For demo, we use `admin` as customer to submit orders and track all submitted orders. Staffs for testing include `tubatu_customer-service_1`, `tubatu_customer-service_2`, `tubatu_engineer_1`, `tubatu_engineer_2`, `skshu_customer-service_1`, `skshu_customer-service_2`, `skshu_engineer_1`, `skshu_engineer_2`. Passwords are identical to the usernames.
+
 ### `/customer`
-A webpage for customer. Two options could be selected in the navigation bar.<br>
-**Submit An Order**: Begin a new request and submit the order to assigned service provider.<br>
-**My Orders**: Obtain all orders the customer has submitted and their details.
+A webpage for customer. Two options could be selected in the navigation bar.
+
+- **Submit An Order**: Begin a new request and submit the order to assigned service provider.
+
+- **My Orders**: Obtain all orders the customer has submitted and their details.
 
 ### `/staff`
-A webpage for staff. Two options could be selected in the navigation bar.<br>
-**Pending Orders**: Show all orders could be accepted by the certain user. User can accept the task in table.<br>
-**Processing Orders**: Show all orders still in processing. Customer service could modify add comments to the order.
+A webpage for staff. Two options could be selected in the navigation bar.
 
-### `/admin`
-A webpage for admin. Two options could be selected in the navigation bar.<br>
-**Create Tenant**: Add a new tenant (company) on the platform.<br>
-**Create User**: Add a new user, either customer or staff.
+- **Pending Orders**: Show all orders could be accepted by the certain user. User can accept the task in table.
+
+- **Processing Orders**: Show all orders still in processing. Customer service could add comments to the order.
+
