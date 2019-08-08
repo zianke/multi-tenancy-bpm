@@ -14,11 +14,11 @@ Activiti-Spring-Boot is used to auto-configure.
 
 ### start
 
-```
-*POST: (tenantId, orderJson) </br>
-*return: no return  </br>
-*functions: User submit an order and start a process
-```
+
+* POST: (tenantId, orderJson) </br>
+* return: no return  </br>
+* functions: User submit an order and start a process
+
 
 ### pending
 
