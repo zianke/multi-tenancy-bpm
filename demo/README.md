@@ -34,7 +34,7 @@ A webpage for customer. Two options could be selected in the navigation bar.
 
 - **Submit An Order**: Begin a new request and submit the order to assigned service provider.
 
-- **My Orders**: Obtain all orders the customer has submitted and their details.
+- **My Orders**: Obtain all orders the customer has submitted and their details. For now it only works for `admin`.
 
 ### `/staff`
 A webpage for staff. Two options could be selected in the navigation bar.
