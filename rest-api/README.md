@@ -15,25 +15,25 @@ Activiti-Spring-Boot is used to auto-configure.
 ### start
 
 
-* `POST:` (tenantId, orderJson) </br>
-* `return:` no return  </br>
-* `functions:` User submit an order and start a process
+* `POST:` (tenantId, orderJson)
+* `return:` no return
+* `effects:` Customer submit an order and start a process
 
 
 ### pending
 
 
-* `GET:` (userId)  </br>
-* `return:` JSONArray(taskId, orderJson) </br>
-* `functions:` List all the tasks that the user could adopt. It is filtered by tenant id and group id.
+* `GET:` (userId)
+* `return:` JSONArray(taskId, orderJson)
+* `effects:` List all the tasks that the user could adopt. It is filtered by tenant id and group id.
 
 
 ### claim
 
 
-* `POST:` (taskId, userId) </br>
-* `return:` no return </br> 
-* `functions:` laim a task
+* `POST:` (taskId, userId)
+* `return:` no return
+* `effects:` Claim a task
 
 
 ### processing
@@ -41,7 +41,7 @@ Activiti-Spring-Boot is used to auto-configure.
 
 * `GET:` (userId) </br>
 * `return:` JSONArray(taskId, orderJson) </br>
-* `functions:` List all the tasks that they user has adopted.
+* `effects:` List all the tasks that they user has adopted.
 
 
 ### task
@@ -49,7 +49,7 @@ Activiti-Spring-Boot is used to auto-configure.
 
 * `GET:` (taskId) </br>
 * `return:` (taskId, orderJson) </br>
-* `functions:` List the queryed task.
+* `effects:` List the queried task.
 
 
 ### complete
@@ -57,7 +57,7 @@ Activiti-Spring-Boot is used to auto-configure.
 
 * `POST:` (taskId, comment) </br>
 * `rerturn:` no return </br>
-* `functions:` Compelete a task.
+* `effects:` Compelete a task.
 
 
 ### auth
@@ -65,7 +65,7 @@ Activiti-Spring-Boot is used to auto-configure.
 
 * `GET:` (userId, password) </br>
 * `rerturn:` no return </br>
-* `functions:` Check whether a user exists and password and username match.
+* `effects:` Check whether a user exists and password and username match.
 
 
 ### tasks
@@ -73,14 +73,6 @@ Activiti-Spring-Boot is used to auto-configure.
 
 * `GET:` (tenantId) </br>
 * `return:` JSONArray(taskId, orderJson) </br>
-* `functions:` List all the tasks belong to the tenant.
-
-
-### all
-
-
-* `POST:` no args </br>
-* `rerturn:` no return </br>
-* `functions:` An API to test whether all the steps could be done in the same time.
+* `effects:` List all the tasks belong to the tenant.
 
 

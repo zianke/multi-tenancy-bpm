@@ -1,3 +1,3 @@
 # bpm-middleware
 
-A middleware written in Express.js. It forwards requests and responses between front-end in React and Activiti REST API in Java, as well as handle authentication using JSON Web Token (JWT). We add this layer because all Activiti REST APIs require an authorization in HTTP header with username and password. However before React sends a request directly to Activiti REST API, the browser first sends a preflight `OPTIONS` request without authorization header, as a result the Activiti REST API will return a 401 error. We find similar issues on Alfresco community (<https://community.alfresco.com/thread/224066-options-request-returning-401>), but could not solve it properly, so we add this middleware layer as a work around.
+A middleware written in Express.js. It forwards requests and responses between front-end in React and Activiti REST API in Java, as well as handle authentication using JSON Web Token (JWT). 
