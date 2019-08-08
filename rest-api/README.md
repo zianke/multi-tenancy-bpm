@@ -1,6 +1,6 @@
 # activiti-rest-api
 
-run in cmd:
+Run in terminal:
 
 ```
 mvn spring-boot:run

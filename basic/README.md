@@ -1,7 +1,8 @@
-# activiti-6-basic
-Basic BPM for House Renovation
+# Basic BPM for House Renovation
 
-run in cmd:
+Create a BPM for house renovation, which supports multiple tenants (tubatu & skshu) and multiple groups (customer-service & engineer) for each tenant.
+
+Run in terminal:
 
 ```
 mvn clean install
